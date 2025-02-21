@@ -1,3 +1,9 @@
+@extends('layouts.app')
+
+@section('title', 'Bloglar')
+
+@section('content')
+<h3>Blog Listesi</h3>
 <ul>
     @foreach ($posts as $post)
         <li>
@@ -16,3 +22,5 @@
 </ul>
 
 <a href="{{ route('posts.create') }}">Yeni Yazı Ekle</a>
+@endsection
+
