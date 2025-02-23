@@ -22,7 +22,7 @@ class PostController extends Controller
             'content' => 'required',
         ]);
 
-        Post::create($request->all());
+        auth()->user()->posts()->create($request->all());
 
         return redirect()->route('posts.index');
     }
