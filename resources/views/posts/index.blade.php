@@ -3,24 +3,30 @@
 @section('title', 'Bloglar')
 
 @section('content')
-<h3>Blog Listesi</h3>
-<ul>
-    @foreach ($posts as $post)
-        <li>
-            {{ $post->title }} - <a href="{{ route('posts.edit', $post->id) }}">Düzenle</a> |
-            <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display: inline;">
-                @csrf
-                @method('DELETE')
-                <button type="submit">Sil</button>
-            </form>
-            <ul>
-                <li>{{ $post->content }}</li>
-            </ul>
-        </li>
-        <br>
-    @endforeach
-</ul>
+    <div class="container">
+        <h3 class="text-center mb-4">Blog Listesi</h3>
+        <a href="{{ route('posts.create') }}" class="btn btn-primary mb-3">Yeni Yazı Ekle</a>
 
-<a href="{{ route('posts.create') }}">Yeni Yazı Ekle</a>
+        <div class="card">
+            <div class="card-body">
+                <ul class="list-group">
+                    @foreach ($posts as $post)
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="display-6">{{ $post->title }}</span>
+                            <span>{{ $post->content }}</span>
+                            <form action="{{ route('posts.destroy', $post->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Bu yazıyı silmek istediğinizden emin misiniz?');">
+                                @csrf
+                                @method('DELETE')
+                                <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-sm btn-warning text-white">Düzenle</a>
+                                <button type="submit" class="btn btn-sm btn-danger" >Sil</button>
+                            </form>
+                        </li>
+                        <br>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+
+    </div>
 @endsection
 
