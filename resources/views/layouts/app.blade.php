@@ -13,6 +13,7 @@
             <div class="container justify-content-between">
             @auth
                 <div>
+                    <a class="navbar-brand" href="{{ route('home') }}">Ana Sayfa</a>
                     <a class="navbar-brand" href="{{ route('posts.index') }}">Bloglar</a>
                     <a class="navbar-brand" href="{{ route('dashboard') }}">Yönetim Paneli</a>
                 </div>
@@ -21,7 +22,8 @@
                     <button type="submit" class="btn text-white">Çıkış Yap</button>
                 </form>
             @else
-                <div>
+            <div>
+                    <a class="navbar-brand" href="{{ route('home') }}">Ana Sayfa</a>
                     <a class="navbar-brand" href="{{ route('login') }}">Giriş Yap</a>
                     <a class="navbar-brand" href="{{ route('register') }}">Kayıt Ol</a>
                 </div>
