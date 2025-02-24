@@ -18,7 +18,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">
-                                    <a href="{{ route('posts.show', $post) }}" class="text-decoration-none">{{ $post->title }}</a>
+                                    <a href="{{ route('posts.show', $post->slug) }}" class="text-decoration-none">{{ $post->title }}</a>
                                 </h5>
                                 <p class="card-text text-muted">{{ Str::limit($post->content, 100, '...') }}</p>
                                 <small>Yazar: {{ $post->user->name }} | {{ $post->created_at->format('d M Y') }}</small>

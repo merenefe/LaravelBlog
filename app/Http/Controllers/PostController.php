@@ -34,7 +34,8 @@ class PostController extends Controller
         return redirect()->route('posts.index');
     }
 
-    public function show(Post $post){
+    public function show($slug){
+        $post = Post::where('slug', $slug)->firstOrFail();
         $comments = $post->comments()->latest()->get();
 
         return view('posts.show', compact('post', 'comments'));
