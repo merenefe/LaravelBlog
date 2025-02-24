@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
     public function index(){
-        $posts = Post::all();
+        $posts = Post::with('categories')->latest()->paginate(10);
         return view('posts.index', compact('posts'));
     }
 
@@ -16,7 +17,9 @@ class PostController extends Controller
         if (!auth()->check()) {
             return redirect()->route('login');
         }
-        return view('posts.create');
+
+        $categories = Category::all();
+        return view('posts.create' , compact('categories'));
     }
 
     public function store(Request $request){
@@ -25,7 +28,8 @@ class PostController extends Controller
             'content' => 'required',
         ]);
 
-        auth()->user()->posts()->create($request->all());
+        $post = auth()->user()->posts()->create($request->all());
+        $post->categories()->sync($request->categories);
 
         return redirect()->route('posts.index');
     }
@@ -38,7 +42,10 @@ class PostController extends Controller
         if (auth()->id() !== $post->user_id) {
             abort(403);
         }
-        return view('posts.edit', compact('post'));
+
+        $categories = Category::all();
+
+        return view('posts.edit', compact(['post', 'categories']));
     }
 
     public function update(Request $request, Post $post){
@@ -52,6 +59,8 @@ class PostController extends Controller
         ]);
 
         $post->update($request->all());
+        $post->categories()->sync($request->categories);
+
 
         return redirect()->route('posts.index');
     }
@@ -63,6 +72,10 @@ class PostController extends Controller
         $post->delete();
 
         return redirect()->route('posts.index');
+    }
+
+    public function filterByCategory(Category $category){
+        return view('posts.index', compact('posts'));
     }
 
 }

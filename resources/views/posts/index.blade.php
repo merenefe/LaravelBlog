@@ -18,10 +18,16 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">
-                                    <a href="{{ route('posts.show', $post->id) }}" class="text-decoration-none">{{ $post->title }}</a>
+                                    <a href="{{ route('posts.show', $post) }}" class="text-decoration-none">{{ $post->title }}</a>
                                 </h5>
                                 <p class="card-text text-muted">{{ Str::limit($post->content, 100, '...') }}</p>
                                 <small>Yazar: {{ $post->user->name }} | {{ $post->created_at->format('d M Y') }}</small>
+                                <p class="text-muted">
+                                    Kategoriler:
+                                    @foreach ($post->categories as $category)
+                                        <span class="badge bg-primary">{{ $category->name }}</span>
+                                    @endforeach
+                                </p>
 
                                 @if (auth()->check() && $post->user_id === auth()->user()->id)
                                     <form action="{{ route('posts.destroy', $post->id) }}" method="POST" class="d-inline mt-3"

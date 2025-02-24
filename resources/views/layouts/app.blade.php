@@ -15,7 +15,9 @@
                 <div>
                     <a class="navbar-brand" href="{{ route('home') }}">Ana Sayfa</a>
                     <a class="navbar-brand" href="{{ route('posts.index') }}">Bloglar</a>
-                    <a class="navbar-brand" href="{{ route('dashboard') }}">Yönetim Paneli</a>
+                @if(auth()->user()->is_admin)
+                    <a class="navbar-brand" href="{{ route('categories.index') }}">Kategoriler</a>
+                @endif
                 </div>
                 <form action="{{ route('logout') }}" method="post" style="display: inline">
                     @csrf

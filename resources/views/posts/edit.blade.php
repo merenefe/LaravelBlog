@@ -18,6 +18,14 @@
                     <label for="content" class="form-label">İçerik</label>
                     <textarea name="content" placeholder="İçerik" class="form-control"> {{ old('content', $post->content) }} </textarea>
                 </div>
+                <div class="mb-3">
+                    <label for="categories" class="form-label">Kategoriler</label>
+                    <select name="categories[]" class="form-control" multiple>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-success">Güncelle</button>
             </form>
         </div>
