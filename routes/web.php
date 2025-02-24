@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
@@ -22,7 +23,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::resource('posts', PostController::class);
+
 Route::get('/posts/category/{category}', [PostController::class, 'filterByCategory'])->name('posts.filter');
+
+Route::post('/posts/{post}/comment', [CommentController::class, 'store'])->middleware('auth')->name('comments.store');
 
 Route::middleware('admin')->group(function(){
     Route::resource('categories', CategoryController::class);

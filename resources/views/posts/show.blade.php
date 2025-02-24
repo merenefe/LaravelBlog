@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Blog Sayfası - '.$post->title)
+@section('title', 'Blog Sayfası - ' . $post->title)
 
 @section('content')
     <div class="row">
@@ -16,7 +16,24 @@
             <p>{{ $post->content }}</p>
             <hr>
             <h5>Yorumlar</h5>
-            <p>Henüz Yorum Yok</p>
+            <ul class="list-group">
+                @foreach ($comments as $comment)
+                    <li class="list-group-item">
+                        <strong>{{ $comment->user->name }}</strong> - {{ $comment->created_at->diffForHumans() }}
+                        <p>{{ $comment->content }}</p>
+                    </li>
+                @endforeach
+            </ul>
+
+            @auth
+                <form action="{{ route('comments.store', $post->id) }}" method="POST" class="mt-3">
+                    @csrf
+                    <textarea name="content" class="form-control" rows="3" placeholder="Yorumunuzu yazın..." required></textarea>
+                    <button type="submit" class="btn btn-primary mt-2">Gönder</button>
+                </form>
+            @else
+                <p>Yorum yapabilmek için <a href="{{ route('login') }}">giriş yapmalısınız</a>.</p>
+            @endauth
         </div>
     </div>
 @endsection
