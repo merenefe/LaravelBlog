@@ -7,7 +7,7 @@
     <title>@yield('title', 'Başlık')</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container justify-content-between">
@@ -32,11 +32,11 @@
         </nav>
     </header>
 
-    <main class="container mt-4">
+    <main class="flex-grow-1 container my-4">
         @yield('content')
     </main>
 
-    <footer class="bg-dark text-white text-center py-3 fixed-bottom">
+    <footer class="bg-dark text-white text-center py-3">
         <p>Laravel Temel Blog Projesi 2025</p>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

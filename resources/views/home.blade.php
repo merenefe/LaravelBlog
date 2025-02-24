@@ -11,12 +11,19 @@
         Son Blog Yazıları
     </h2>
 
-    <ul class="list-group">
+    <div class="row">
         @foreach ($posts as $post)
-            <li class="list-group-item">
-                {{ $post->title }}
-            </li>
+            <div class="col-md-4">
+                <div class="card mb4 shadow-sm">
+                    <img src="https://picsum.photos/seed/picsum/50/50" class="card-img-top" alt="Blog Image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $post->title }}</h5>
+                        <p class="card-text">{{ Str::limit($post->content, 100, '...') }}</p>
+                        <a href="{{ route('posts.show', $post) }}" class="btn btn-primary">Devamını Oku</a>
+                    </div>
+                </div>
+            </div>
         @endforeach
-    </ul>
+    </div>
 </div>
 @endsection
